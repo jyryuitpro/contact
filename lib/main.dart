@@ -10,17 +10,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: Text('안녕'),
-      // home: Icon(Icons.star),
-      // home: Icon(Icons.shop),
-      // home: Image.asset('assets/logo.png'),
-      // home: SizedBox(),
-      home: Center(
-        child: Container(
-          width: 50,
-          height: 50,
-          color: Colors.blue,
+      home: Scaffold(
+        // appBar: AppBar(),
+        body: Column(
+          children: [
+            Icon(Icons.star),
+            Icon(Icons.star),
+            Icon(Icons.star),
+          ],
         ),
+        // bottomNavigationBar: BottomAppBar(),
       ),
     );
   }
