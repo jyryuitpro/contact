@@ -12,14 +12,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          leading: Icon(Icons.star),
           title: Text('AppBar'),
+          actions: [
+            Icon(Icons.star),
+            Icon(Icons.star)
+          ],
         ),
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            color: Colors.blue,
+        body: SizedBox(
+          child: IconButton(
+            icon: Icon(Icons.star),
+            onPressed: () {
+
+            },
           ),
         ),
         // bottomNavigationBar: BottomAppBar(),
