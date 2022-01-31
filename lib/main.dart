@@ -16,11 +16,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var a = 3;
+  var total = 3;
 
   // var name = '연락처앱';
   var name = ['류지영', '홍길동', '피자집'];
   var like = [0, 0, 0];
+
+  //1.부모에 수정함수만들기
+  addOne(inputData) {
+    setState(() {
+      total++;
+      name.add(inputData);
+      print(name);
+    });
+  }
 
   //BuildContext context: 부모위젯의 정보를 담고있는 변수일 뿐
   @override
@@ -28,10 +37,10 @@ class _MyAppState extends State<MyApp> {
     print(context.findAncestorWidgetOfExactType<MaterialApp>());
     return Scaffold(
       appBar: AppBar(
-        title: Text('연락처앱'),
+        title: Text(total.toString()),
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: name.length,
         itemBuilder: (context, index) {
           return ListTile(
             leading: Image.asset('assets/logo.png'),
@@ -46,7 +55,8 @@ class _MyAppState extends State<MyApp> {
             context: context,
             builder: (context) {
               //1.보내고
-              return DialogUI(state: a);
+              // return DialogUI(state: a);
+              return DialogUI(addOne: addOne);
             },
           );
         },
@@ -57,9 +67,17 @@ class _MyAppState extends State<MyApp> {
 
 class DialogUI extends StatelessWidget {
   //2.등록하고
-  final state;
+  // final state;
+  final addOne;
 
-  const DialogUI({Key? key, this.state}) : super(key: key);
+  //inputData.text (출력)
+  var inputData = TextEditingController();
+
+  // var inputData2 = '';
+  // var inputData3 = {};
+
+  // const DialogUI({Key? key, this.state}) : super(key: key);
+  DialogUI({Key? key, this.addOne}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +87,25 @@ class DialogUI extends StatelessWidget {
         height: 300,
         child: Column(
           children: [
-            TextField(),
+            TextField(
+              controller: inputData,
+            ),
+            // TextField(
+            //   onChanged: (value) {
+            //     inputData2 = value;
+            //   },
+            // ),
+            // TextField(
+            //   onChanged: (value) {
+            //
+            //   },
+            // ),
             TextButton(
               //3.씁니다
-              child: Text(state.toString()),
+              // child: Text(state.toString()),
+              child: Text('완료'),
               onPressed: () {
-
+                addOne(inputData.text);
               },
             ),
             TextButton(
