@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var a = 1;
+  var a = 3;
 
   // var name = '연락처앱';
   var name = ['류지영', '홍길동', '피자집'];
@@ -40,34 +40,52 @@ class _MyAppState extends State<MyApp> {
         },
       ),
       //Builder: 족보생성기
-      floatingActionButton: Builder(
-        builder: (context) {
-          return FloatingActionButton(
-            child: Text(a.toString()),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    child: Text('안녕'),
-                  );
-                },
-              );
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              //1.보내고
+              return DialogUI(state: a);
             },
           );
-        }
+        },
       ),
     );
   }
 }
 
-class ShopItem extends StatelessWidget {
-  const ShopItem({Key? key}) : super(key: key);
+class DialogUI extends StatelessWidget {
+  //2.등록하고
+  final state;
+
+  const DialogUI({Key? key, this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Text('안녕'),
+    return Dialog(
+      child: Container(
+        width: 300,
+        height: 300,
+        child: Column(
+          children: [
+            TextField(),
+            TextButton(
+              //3.씁니다
+              child: Text(state.toString()),
+              onPressed: () {
+
+              },
+            ),
+            TextButton(
+              child: Text('취소'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
