@@ -22,12 +22,16 @@ class _MyAppState extends State<MyApp> {
   var name = ['류지영', '홍길동', '피자집'];
   var like = [0, 0, 0];
 
+  addName(inputData) {
+    setState(() {
+      name.add(inputData);
+    });
+  }
+
   //1.부모에 수정함수만들기
-  addOne(inputData) {
+  addOne() {
     setState(() {
       total++;
-      name.add(inputData);
-      print(name);
     });
   }
 
@@ -56,7 +60,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context) {
               //1.보내고
               // return DialogUI(state: a);
-              return DialogUI(addOne: addOne);
+              return DialogUI(addOne: addOne, addName: addName);
             },
           );
         },
@@ -69,6 +73,7 @@ class DialogUI extends StatelessWidget {
   //2.등록하고
   // final state;
   final addOne;
+  final addName;
 
   //inputData.text (출력)
   var inputData = TextEditingController();
@@ -77,7 +82,7 @@ class DialogUI extends StatelessWidget {
   // var inputData3 = {};
 
   // const DialogUI({Key? key, this.state}) : super(key: key);
-  DialogUI({Key? key, this.addOne}) : super(key: key);
+  DialogUI({Key? key, this.addOne, this.addName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +110,8 @@ class DialogUI extends StatelessWidget {
               // child: Text(state.toString()),
               child: Text('완료'),
               onPressed: () {
-                addOne(inputData.text);
+                addOne();
+                addName(inputData.text);
               },
             ),
             TextButton(
