@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  var a = 1;
+
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(),
-        // body: ShopItem(),
-        body: ListView(
-          // controller: ,
-          children: [
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-            Text('ListView'),
-          ],
+        body: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            print(index);
+            return ListTile(
+              leading: Image.asset('assets/logo.png'),
+              title: Text('류지영'),
+            );
+          },
         ),
-        // bottomNavigationBar: ,
+        floatingActionButton: FloatingActionButton(
+          child: Text(a.toString()),
+          onPressed: () {
+            print(a);
+            a++;
+          },
+        ),
       ),
     );
   }
