@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:contacts_service/contacts_service.dart';
 
 void main() {
   runApp(
@@ -21,6 +22,15 @@ class _MyAppState extends State<MyApp> {
     var status = await Permission.contacts.status;
     if (status.isGranted) {
       print('허락됨');
+      var contacts = await ContactsService.getContacts();
+      // print(contacts[0].displayName);
+      // var newPerson = Contact();
+      // newPerson.givenName = '잡스';
+      // newPerson.familyName = '스티브';
+      // ContactsService.addContact(newPerson);
+      setState(() {
+        name = contacts;
+      });
     } else if (status.isDenied) {
       print('거절됨');
       Permission.contacts.request();
@@ -34,15 +44,20 @@ class _MyAppState extends State<MyApp> {
     // getPermission();
   }
 
-  var total = 3;
+  int total = 3;
 
   // var name = '연락처앱';
-  var name = ['류지영', '홍길동', '피자집'];
-  var like = [0, 0, 0];
+  // var name = ['류지영', '홍길동', '피자집'];
+  List<Contact> name = [];
+  List<int> like = [0, 0, 0];
 
   addName(inputData) {
     setState(() {
-      name.add(inputData);
+      // name.add(inputData);
+      print(inputData);
+      var newPerson = Contact();
+      newPerson.givenName = inputData;
+      ContactsService.addContact(newPerson);
     });
   }
 
@@ -74,7 +89,7 @@ class _MyAppState extends State<MyApp> {
         itemBuilder: (context, index) {
           return ListTile(
             leading: Image.asset('assets/logo.png'),
-            title: Text(name[index]),
+            title: Text(name[index].givenName ?? '이름이없는놈'),
           );
         },
       ),
